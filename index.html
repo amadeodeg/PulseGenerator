@@ -9,10 +9,12 @@
     <title>Pulse Generator</title>
 </head>
 <body onload="mainOnLoad()">
-    This is the body
+    <div id="canvasdivID">
+        <canvas id="canvasID" width="750" height="450" onclick="canvasClick(event)"></canvas>
+    </div>
+    <div id="listdivID" width="500" height="500"></div>
+    <div id="filedivID">
+        <button id="copyButton" onclick="copyClip()">Copy to clipboard</button>
+    </div>
 </body>
-
-<footer>
-    Authors:  Amadeo de Gracia Herranz & Ernesto de Gracia Herranz
-</footer>
 </html>

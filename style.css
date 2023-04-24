@@ -6,3 +6,31 @@ body {
 #id {
     width: fit-content;
 }
+
+#canvas {
+    display: block;
+    height: 450px;
+    width: 750px;
+}
+
+.marker{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #8a2323;
+    text-align: center;
+    font-size: 13px;
+    color: aqua;
+}
+
+.mark_selected {
+    background: #534db3;
+}
+
+.selected {
+    background-color: pink;
+}
+
+.input{
+    width: 50px;
+}
