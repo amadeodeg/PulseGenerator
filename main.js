@@ -16,6 +16,7 @@ let marker_selected;
 let element_selected;
 let listfield_selected;
 
+
 let xmin,xmax,ymin,ymax;
 
 function mainOnLoad() {
@@ -121,8 +122,8 @@ class Marker {
         this.y = Math.floor((posY + MARKER_OFFSET_Y) /GRID_SIZE) * GRID_SIZE - MARKER_OFFSET_Y;
         this.xshown = this.x;
         this.yshown = this.y;
-        this.rowidx=marker_list.length;
         this.updatexyshown();
+        this.rowidx=marker_list.length;
         this.element_marker = null;
         this.element_list = null;
         this.createElementMarker();
@@ -215,7 +216,11 @@ class Marker {
         //update with limits
         this.xshown = this.xshown*(xmax-xmin)/(canvas_width/GRID_SIZE);
         this.yshown = this.yshown*(ymax-ymin)/(canvas_height/GRID_SIZE);
+        if (this.xchecker()){
+            this.xshown= this.xchecker()+parseFloat(document.getElementById("deltadiv").getElementsByClassName("input")[0].value);
+        }
     }
+
     updatexyabs(){
         //update with limits
         var sqx = this.xshown/(xmax-xmin)*(canvas_width/GRID_SIZE);
@@ -223,6 +228,17 @@ class Marker {
         //only squares
         this.x = (sqx+0.5)* GRID_SIZE;
         this.y = canvas_height - (sqy+0.5)* GRID_SIZE;
+    }
+
+    xchecker(){
+        var result=0;
+        for(var i=marker_list.length-1; i>=0; i--){
+            if (marker_list[i].x == this.x){
+                result=marker_list[i].xshown;
+                break;
+            }
+        }
+        return result;
     }
 }
 
