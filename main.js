@@ -31,7 +31,6 @@ function mainOnLoad() {
 }
 
 function updateCanvas() {
-    canvas_context.clearRect(0, 0, canvas_width, canvas_height);
     drawBackground();
     drawSpecialLines();
     drawGrid();
@@ -40,7 +39,13 @@ function updateCanvas() {
     updateListShown();
 }
 
+
 function drawBackground(){
+    canvas_width = GRID_SIZE*document.getElementById("canvasSizediv").getElementsByClassName("input")[0].value;
+    canvas_height = GRID_SIZE*document.getElementById("canvasSizediv").getElementsByClassName("input")[1].value;
+    canvas.width = canvas_width;
+    canvas.height = canvas_height;
+    canvas_context.clearRect(0, 0, canvas_width, canvas_height);
     canvas_context.fillStyle = "#f3f6f4";
     canvas_context.fillRect(0, 0, canvas_width, canvas_height);
 }
