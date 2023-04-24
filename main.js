@@ -16,6 +16,8 @@ let marker_selected;
 let element_selected;
 let listfield_selected;
 
+let xmin,xmax,ymin,ymax;
+
 function mainOnLoad() {
     console.log("hello world");
 
@@ -25,6 +27,7 @@ function mainOnLoad() {
     canvas_height = canvas.height;
     canvas_context = canvas.getContext("2d");
     updateCanvas();
+    updateAxisLimit();
 }
 
 function updateCanvas() {
@@ -32,7 +35,9 @@ function updateCanvas() {
     drawBackground();
     drawSpecialLines();
     drawGrid();
+    marker_list.sort((a,b)=> a.x - b.x);
     drawMarkerLines();
+    updateListShown();
 }
 
 function drawBackground(){
@@ -80,7 +85,6 @@ function drawGrid(){
 
 function drawMarkerLines(){
     canvas_context.beginPath();
-
     for(var i=0; i<marker_list.length-1; i++){
         canvas_context.moveTo(marker_list[i].x,marker_list[i].y);
         canvas_context.lineTo(marker_list[i+1].x,marker_list[i+1].y)
@@ -89,6 +93,17 @@ function drawMarkerLines(){
     canvas_context.lineWidth =2;
     canvas_context.stroke();
 }
+
+
+function updateListShown(){
+    listdiv.innerHTML="";
+    for(var i=0; i<marker_list.length; i++){
+        marker_list[i].rowidx=i;
+        marker_list[i].createElementList();
+        marker_list[i].element_marker.innerHTML=i;
+    }
+}
+
 
 function canvasClick(event) {
     marker_list.push(new Marker(event.clientX, event.clientY));
@@ -101,18 +116,18 @@ class Marker {
         this.y = Math.floor((posY + MARKER_OFFSET_Y) /GRID_SIZE) * GRID_SIZE - MARKER_OFFSET_Y;
         this.xshown = this.x;
         this.yshown = this.y;
+        this.rowidx=marker_list.length;
         this.updatexyshown();
         this.element_marker = null;
         this.element_list = null;
         this.createElementMarker();
         this.setPosition();
-        this.createElementList();
-        
+        this.createElementList();   
     }
 
     createElementMarker() {
         this.element_marker = document.createElement("div");
-        this.element_marker.innerHTML = 0;
+        this.element_marker.innerHTML = this.rowidx;
         this.element_marker.className = "marker"
         document.body.appendChild(this.element_marker);
         
@@ -154,7 +169,7 @@ class Marker {
         this.element_list = document.createElement("div");
         this.element_list.className = "elementList"
         this.element_list.innerHTML = `<div class="row">
-                                <label>idx</label>
+                                <label id="rowidx">id:${this.rowidx}</label>
                                 <label for="time">Time:</label>
                                 <input class="input" name="time" type="text" value="${this.xshown}">
                                 <label for="power">Power:</label>
@@ -199,12 +214,21 @@ class Marker {
 }
 
 function copyClip(){
-    var result="hello clip\n"
+    var result="0 0\n"
+    var timeU = document.getElementById("timeUnitsID").value;
+    var pwrU = document.getElementById("pwrUnitsID").value;
     for (var i=0; i<marker_list.length; i++){
         var e = marker_list[i];
-        var aux= ""+e.xshown+" "+e.yshown+"\n";
+        var aux= ""+e.xshown+timeU+" "+e.yshown+pwrU+"\n";
         result+=aux; 
     }
     navigator.clipboard.writeText(result);
     alert("Copied")
+}
+
+function updateAxisLimit(){
+    xmin=document.getElementById("axislimitsID").getElementsByClassName("input")[0].value;
+    xmax=document.getElementById("axislimitsID").getElementsByClassName("input")[1].value;
+    ymin=document.getElementById("axislimitsID").getElementsByClassName("input")[2].value;
+    ymax=document.getElementById("axislimitsID").getElementsByClassName("input")[3].value;
 }
