@@ -9,48 +9,53 @@
     <title>Pulse Generator</title>
 </head>
 <body onload="mainOnLoad()">
-    <div id="canvasdivID">
-        <canvas id="canvasID" width="750" height="450" onclick="canvasClick(event)"></canvas>
-    </div>
-    <div id="optionsdiv">
-        <div id="axislimitsID">
-            <label for="xmin">Xmin</label>
-            <input class="input" name="time" type="text" value="0" onchange="updateAxisLimit()">
-            <label for="xmax">Xmax</label>
-            <input class="input" name="time" type="text" value="50" onchange="updateAxisLimit()">
-            <label for="ymin">Ymin</label>
-            <input class="input" name="time" type="text" value="0" onchange="updateAxisLimit()">
-            <label for="ymax">Ymax</label>
-            <input class="input" name="time" type="text" value="30" onchange="updateAxisLimit()">
+    <div>
+        <div id="canvasdivID">
+            <canvas id="canvasID" width="750" height="450" onclick="canvasClick(event)"></canvas>
         </div>
-        <div id="canvasSizediv">
-            <label for="horizontalNsq">Horizontal number squares</label>
-            <input class="input" name="hsq" type="text" value="50" onchange="updateCanvas()">
-            <label for="verticalNsq">Vertical number squares</label>
-            <input class="input" name="vsq" type="text" value="30" onchange="updateCanvas()">
+        <div id="optionsdiv">
+            <div id="axislimitsID">
+                <label for="xmin">Xmin</label>
+                <input class="input" name="xmin" type="text" value="0" onchange="updateAxisLimit()">
+                <label for="xmax">Xmax</label>
+                <input class="input" name="xmax" type="text" value="50" onchange="updateAxisLimit()">
+                <label for="ymin">Ymin</label>
+                <input class="input" name="ymin" type="text" value="0" onchange="updateAxisLimit()">
+                <label for="ymax">Ymax</label>
+                <input class="input" name="ymax" type="text" value="30" onchange="updateAxisLimit()">
+            </div>
+            <div id="canvasSizediv">
+                <label for="horizontalNsq">Horizontal number squares</label>
+                <input class="input" name="horizontalNsq" type="text" value="50" onchange="updateCanvas()">
+                <label for="verticalNsq">Vertical number squares</label>
+                <input class="input" name="verticalNsq" type="text" value="30" onchange="updateCanvas()">
+            </div>
+            <div id="deltadiv">
+                <label for="delta">DeltaTime</label>
+                <input class="input" name="delta" type="text" value="0.01">           
+            </div>
+            <label for="timeUnits">Time Units</label>
+            <select name="timeUnits" id="timeUnitsID">
+                <option value="">s</option>
+                <option value="e-3">ms</option>
+                <option value="e-6">us</option>
+                <option value="e-9">ns</option>
+                <option value="e-12">ps</option>
+            </select>
+            <label for="pwrUnits">Power Units</label>
+            <select name="pwrUnits" id="pwrUnitsID">
+                <option value="">1</option>
+                <option value="e-3">m</option>
+                <option value="e-6">u</option>
+                <option value="e-9">n</option>
+                <option value="e-12">p</option>
+            </select>
+            <div id="filedivID">
+                <button id="copyButton" onclick="copyClip()">Copy to clipboard</button>
+            </div>
         </div>
-        <div id="deltadiv">
-            <label for="delta">DeltaTime</label>
-            <input class="input" name="delta" type="text" value="0.01">           
-        </div>
-        <select name="timeUnits" id="timeUnitsID">
-            <option value="">s</option>
-            <option value="e-3">ms</option>
-            <option value="e-6">us</option>
-            <option value="e-9">ns</option>
-            <option value="e-12">ps</option>
-        </select>
-        <select name="pwrUnits" id="pwrUnitsID">
-            <option value="">1</option>
-            <option value="e-3">m</option>
-            <option value="e-6">u</option>
-            <option value="e-9">n</option>
-            <option value="e-12">p</option>
-        </select>
     </div>
     <div id="listdivID" width="500" height="500"></div>
-    <div id="filedivID">
-        <button id="copyButton" onclick="copyClip()">Copy to clipboard</button>
-    </div>
+
 </body>
 </html>

@@ -55,14 +55,21 @@ function drawSpecialLines(){
     SPECIAL_LINES_COLORS = ["#bcbcbc"];
 
     SPECIAL_LINES_HORIZONTAL = [0, 5, 10, 15, 20, 25, 30];
-    SPECIAL_LINES_HORIZONTAL = [15]
+    //SPECIAL_LINES_HORIZONTAL = [15]
+    SPECIAL_LINES_HORIZONTAL =[];
+    for (var aux=canvas_height/GRID_SIZE-1; aux>0; aux-=5){
+        SPECIAL_LINES_HORIZONTAL.push(aux);
+    }
     for (var j =0; j<SPECIAL_LINES_HORIZONTAL.length; j+=1){
         canvas_context.fillStyle = SPECIAL_LINES_COLORS[0];
         canvas_context.fillRect(0,SPECIAL_LINES_HORIZONTAL[j]*GRID_SIZE, canvas_width, GRID_SIZE);
     }
 
-    SPECIAL_LINES_VERTICAL = [0, 10, 20, 30, 40, 50, 60];
-    SPECIAL_LINES_VERTICAL =[]
+    //SPECIAL_LINES_VERTICAL = [0, 10, 20, 30, 40, 50, 60];
+    SPECIAL_LINES_VERTICAL =[];
+    for (var aux=0; aux<canvas_width/GRID_SIZE; aux+=10){
+        SPECIAL_LINES_VERTICAL.push(aux);
+    }
     for (var i =0; i<SPECIAL_LINES_VERTICAL.length; i+=1){
         canvas_context.fillStyle = SPECIAL_LINES_COLORS[0];
         canvas_context.fillRect(SPECIAL_LINES_VERTICAL[i]*GRID_SIZE,0, GRID_SIZE, canvas_height);
@@ -175,7 +182,7 @@ class Marker {
         this.element_list = document.createElement("div");
         this.element_list.className = "elementList"
         this.element_list.innerHTML = `<div class="row">
-                                <label id="rowidx">id:${this.rowidx}</label>
+                                <label id="rowidx">id:  ${this.rowidx} </label>
                                 <label for="time">Time:</label>
                                 <input class="input" name="time" type="text" value="${this.xshown}">
                                 <label for="power">Power:</label>
