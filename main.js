@@ -204,12 +204,20 @@ class Marker {
     }
 
     updatexyshown(){
-        this.xshown = this.x/GRID_SIZE -0.5;
-        this.yshown = this.y/GRID_SIZE -0.5;
+        //only squares
+        this.xshown = (this.x/GRID_SIZE -0.5);
+        this.yshown = (canvas_height/GRID_SIZE) - (this.y/GRID_SIZE) -0.5;
+        //update with limits
+        this.xshown = this.xshown*(xmax-xmin)/(canvas_width/GRID_SIZE);
+        this.yshown = this.yshown*(ymax-ymin)/(canvas_height/GRID_SIZE);
     }
     updatexyabs(){
-        this.x = (this.xshown+0.5)* GRID_SIZE;
-        this.y = (this.yshown+0.5)* GRID_SIZE;
+        //update with limits
+        var sqx = this.xshown/(xmax-xmin)*(canvas_width/GRID_SIZE);
+        var sqy = this.yshown/(ymax-ymin)*(canvas_height/GRID_SIZE); 
+        //only squares
+        this.x = (sqx+0.5)* GRID_SIZE;
+        this.y = canvas_height - (sqy+0.5)* GRID_SIZE;
     }
 }
 
