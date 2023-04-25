@@ -221,8 +221,8 @@ class Marker {
         this.xshown = (this.x/GRID_SIZE -0.5);
         this.yshown = (canvas_height/GRID_SIZE) - (this.y/GRID_SIZE) -0.5;
         //update with limits
-        this.xshown = this.xshown*(xmax-xmin)/(canvas_width/GRID_SIZE);
-        this.yshown = this.yshown*(ymax-ymin)/(canvas_height/GRID_SIZE);
+        this.xshown = this.xshown*(xmax-xmin)/(canvas_width/GRID_SIZE) + xmin;
+        this.yshown = this.yshown*(ymax-ymin)/(canvas_height/GRID_SIZE) + ymin;
         if (this.xchecker()){
             this.xshown= this.xchecker()+parseFloat(document.getElementById("deltadiv").getElementsByClassName("input")[0].value);
         }
@@ -233,8 +233,8 @@ class Marker {
         var sqx = this.xshown/(xmax-xmin)*(canvas_width/GRID_SIZE);
         var sqy = this.yshown/(ymax-ymin)*(canvas_height/GRID_SIZE); 
         //only squares
-        this.x = (sqx+0.5)* GRID_SIZE;
-        this.y = canvas_height - (sqy+0.5)* GRID_SIZE;
+        this.x = (sqx+0.5)* GRID_SIZE -xmin;
+        this.y = canvas_height - (sqy+0.5)* GRID_SIZE -ymin;
     }
 
     xchecker(){
@@ -263,8 +263,8 @@ function copyClip(){
 }
 
 function updateAxisLimit(){
-    xmin=document.getElementById("axislimitsID").getElementsByClassName("input")[0].value;
-    xmax=document.getElementById("axislimitsID").getElementsByClassName("input")[1].value;
-    ymin=document.getElementById("axislimitsID").getElementsByClassName("input")[2].value;
-    ymax=document.getElementById("axislimitsID").getElementsByClassName("input")[3].value;
+    xmin=parseFloat(document.getElementById("axislimitsID").getElementsByClassName("input")[0].value);
+    xmax=parseFloat(document.getElementById("axislimitsID").getElementsByClassName("input")[1].value);
+    ymin=parseFloat(document.getElementById("axislimitsID").getElementsByClassName("input")[2].value);
+    ymax=parseFloat(document.getElementById("axislimitsID").getElementsByClassName("input")[3].value);
 }
